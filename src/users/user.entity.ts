@@ -1,10 +1,14 @@
 import {
+  BeforeInsert,
+  BeforeUpdate,
   Column,
   CreateDateColumn,
   Entity,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
+
+import * as bcrypt from 'bcrypt';
 
 @Entity()
 export class User {
@@ -17,6 +21,9 @@ export class User {
   @Column()
   password: string;
 
+  @Column()
+  nickname: string;
+
   @Column({ nullable: true })
   profileImageUrl?: string;
 
@@ -25,4 +32,16 @@ export class User {
 
   @UpdateDateColumn({ name: 'updated_at' })
   updatedAt: Date;
+
+  @BeforeInsert()
+  @BeforeUpdate()
+  async hashPassword(): Promise<void> {
+    if (this.password) {
+      this.password = await bcrypt.hash(this.password, 10);
+    }
+  }
+
+  comparePassword(password: string): Promise<boolean> {
+    return bcrypt.compare(password, this.password);
+  }
 }
