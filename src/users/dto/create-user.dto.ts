@@ -8,5 +8,5 @@ export class CreateUserDto {
   password: string;
 
   @IsString()
-  nickname: string;
+  username: string;
 }

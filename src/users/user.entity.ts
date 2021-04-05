@@ -22,7 +22,7 @@ export class User {
   password: string;
 
   @Column()
-  nickname: string;
+  username: string;
 
   @Column({ nullable: true })
   profileImageUrl?: string;

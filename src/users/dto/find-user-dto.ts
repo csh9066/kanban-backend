@@ -3,5 +3,5 @@ export class FindUserDto {
 
   email?: string;
 
-  nickname?: string;
+  username?: string;
 }
