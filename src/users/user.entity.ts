@@ -4,11 +4,13 @@ import {
   Column,
   CreateDateColumn,
   Entity,
+  OneToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
 
 import * as bcrypt from 'bcrypt';
+import { Board } from '../boards/board.entity';
 
 @Entity()
 export class User {
@@ -32,6 +34,9 @@ export class User {
 
   @UpdateDateColumn({ name: 'updated_at' })
   updatedAt: Date;
+
+  @OneToMany(() => Board, (board) => board.owner)
+  boards: Board[];
 
   @BeforeInsert()
   @BeforeUpdate()
