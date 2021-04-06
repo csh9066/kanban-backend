@@ -16,4 +16,10 @@ export class BoardsController {
   ) {
     return await this.boardsService.create(createBoardDto, userId);
   }
+
+  @UseGuards(AuthGuard('jwt'))
+  @Get()
+  async findAll(@AuthUser('id') userId: string) {
+    return await this.boardsService.findAll(userId);
+  }
 }

@@ -3,7 +3,7 @@ import { User } from '../users/user.entity';
 
 @Entity()
 export class Board {
-  @PrimaryGeneratedColumn('uuid')
+  @PrimaryGeneratedColumn()
   id: string;
 
   @Column()

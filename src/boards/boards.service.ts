@@ -1,6 +1,7 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
+import { User } from '../users/user.entity';
 import { UsersService } from '../users/users.service';
 import { Board } from './board.entity';
 import { CreateBoardDto } from './dto/create-board.dto';
@@ -21,6 +22,19 @@ export class BoardsService {
       ...createBoardDto,
       owner,
     });
-    return await this.boardRepository.save(newBoard);
+    await this.boardRepository.save(newBoard);
+    delete newBoard.owner;
+    return newBoard;
+  }
+
+  async findAll(ownerId: string): Promise<Board[]> {
+    const boards = await this.boardRepository.find({
+      where: {
+        owner: {
+          id: ownerId,
+        },
+      },
+    });
+    return boards;
   }
 }
