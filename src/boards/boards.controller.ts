@@ -1,4 +1,19 @@
-import { Controller } from '@nestjs/common';
+import { Body, Controller, Get, Post, UseGuards } from '@nestjs/common';
+import { AuthGuard } from '@nestjs/passport';
+import { AuthUser } from '../users/auth-user.decorator';
+import { BoardsService } from './boards.service';
+import { CreateBoardDto } from './dto/create-board.dto';
 
 @Controller('boards')
-export class BoardsController {}
+export class BoardsController {
+  constructor(private boardsService: BoardsService) {}
+
+  @UseGuards(AuthGuard('jwt'))
+  @Post()
+  async create(
+    @Body() createBoardDto: CreateBoardDto,
+    @AuthUser('id') userId: string,
+  ) {
+    return await this.boardsService.create(createBoardDto, userId);
+  }
+}
