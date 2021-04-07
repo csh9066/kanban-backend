@@ -9,5 +9,6 @@ import { BoardsService } from './boards.service';
   imports: [TypeOrmModule.forFeature([Board]), UsersModule],
   controllers: [BoardsController],
   providers: [BoardsService],
+  exports: [BoardsService],
 })
 export class BoardsModule {}
