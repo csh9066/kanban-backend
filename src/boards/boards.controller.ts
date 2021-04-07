@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Post, UseGuards } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, UseGuards } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { AuthUser } from '../users/auth-user.decorator';
 import { BoardsService } from './boards.service';
@@ -21,5 +21,11 @@ export class BoardsController {
   @Get()
   async findAll(@AuthUser('id') userId: string) {
     return await this.boardsService.findAll(userId);
+  }
+
+  @UseGuards(AuthGuard('jwt'))
+  @Get('/:id')
+  async findById(@Param('id') id: string) {
+    return await this.boardsService.findById(id);
   }
 }

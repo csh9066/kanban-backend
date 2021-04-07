@@ -37,4 +37,14 @@ export class BoardsService {
     });
     return boards;
   }
+
+  async findById(boardId: string): Promise<Board> {
+    const board = await this.boardRepository.findOne({
+      where: {
+        id: boardId,
+      },
+      relations: ['lists', 'lists.cards'],
+    });
+    return board;
+  }
 }
