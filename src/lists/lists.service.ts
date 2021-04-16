@@ -25,4 +25,8 @@ export class ListsService {
     delete newList.board;
     return newList;
   }
+
+  async findById(id: string): Promise<List> {
+    return this.listRepository.findOne(id);
+  }
 }

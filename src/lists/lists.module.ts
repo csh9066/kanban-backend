@@ -9,5 +9,6 @@ import { ListsService } from './lists.service';
   imports: [TypeOrmModule.forFeature([List]), BoardsModule],
   controllers: [ListsController],
   providers: [ListsService],
+  exports: [ListsService],
 })
 export class ListsModule {}
