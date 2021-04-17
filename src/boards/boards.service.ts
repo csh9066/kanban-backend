@@ -33,6 +33,9 @@ export class BoardsService {
           id: ownerId,
         },
       },
+      order: {
+        createdAt: 'ASC',
+      },
     });
     return boards;
   }
@@ -44,6 +47,7 @@ export class BoardsService {
       },
       relations: ['lists', 'lists.cards'],
     });
+    board.lists.sort((a, b) => a.order - b.order);
     if (!board) {
       throw new NotFoundException('board is not found');
     }

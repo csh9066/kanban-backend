@@ -1,5 +1,6 @@
 import {
   Column,
+  CreateDateColumn,
   Entity,
   ManyToOne,
   OneToMany,
@@ -10,7 +11,7 @@ import { User } from '../users/user.entity';
 
 @Entity()
 export class Board {
-  @PrimaryGeneratedColumn()
+  @PrimaryGeneratedColumn('uuid')
   id: string;
 
   @Column()
@@ -18,6 +19,9 @@ export class Board {
 
   @Column()
   background: string;
+
+  @CreateDateColumn({ name: 'created_at' })
+  createdAt: Date;
 
   @ManyToOne(() => User, (user) => user.boards)
   owner: User;
