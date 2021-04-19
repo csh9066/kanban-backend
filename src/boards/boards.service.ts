@@ -47,10 +47,10 @@ export class BoardsService {
       },
       relations: ['lists', 'lists.cards'],
     });
-    board.lists.sort((a, b) => a.order - b.order);
     if (!board) {
       throw new NotFoundException('board is not found');
     }
+    board.lists.sort((a, b) => a.order - b.order);
     return board;
   }
 }
