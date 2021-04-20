@@ -9,6 +9,6 @@ export default class CreateListDto {
   @IsNumber()
   order: number;
 
-  @IsString()
+  @IsUUID()
   boardId: string;
 }
